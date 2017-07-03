@@ -20,7 +20,7 @@ namespace BlockChainLibrary
                 int operationNumber = OperationFile.GetLastOperationNumber() + 1;
                 string newFilePath = OperationFile.GetFilePath(operationNumber);
 
-                string SHAOfPrevOperation = HashLastOperationFile();
+                string SHAOfPrevOperation = GetHashOperationFile(OperationFile.GetLastFilePath());
                 string contents = $"{operation}{Environment.NewLine}{SHAOfPrevOperation}";
 
                 File.WriteAllText(newFilePath, contents);
@@ -32,13 +32,27 @@ namespace BlockChainLibrary
 
         }
 
-        private static string HashLastOperationFile()
+        public static int CheckChain()
         {
-            string lastOperationFilePath = OperationFile.GetLastFilePath();
+            var fInfos = OperationFile.GetFilesFromDirectory();
+            int errorNum = 0;
 
-            if (!ReferenceEquals(lastOperationFilePath, null))
+            for (int i = 0; i < fInfos.Length - 1; i++ )
             {
-                FileStream prevOperationFile = File.Open(lastOperationFilePath, FileMode.Open);
+                string hash = GetHashOperationFile(fInfos[i].FullName);
+                string hashInNextFile = OperationFile.GetLastLine(fInfos[i + 1].FullName);
+
+                if (!hash.Equals(hashInNextFile)) errorNum++;
+            }
+
+            return errorNum;
+        }
+
+        private static string GetHashOperationFile(string path)
+        {
+            if (!ReferenceEquals(path, null))
+            {
+                FileStream prevOperationFile = File.Open(path, FileMode.Open);
 
                 prevOperationFile.Position = 0;
 

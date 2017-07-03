@@ -19,6 +19,10 @@ namespace tBlockChain
             string chain = $"{operation2}{Environment.NewLine}{operation3}";
 
             BlockChain.Create(chain);
+
+            int errors = BlockChain.CheckChain();
+
+            Console.WriteLine($"Numer of erros: {errors}");
         }
     }
 }

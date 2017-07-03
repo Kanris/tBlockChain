@@ -35,6 +35,20 @@ namespace BlockChainLibrary
             return pathToTheNewFile;
         }
 
+        public static FileInfo[] GetFilesFromDirectory()
+        {
+            DirectoryInfo dir = new DirectoryInfo(pathToOperations);
+
+            return dir.GetFiles();
+        }
+
+        public static string GetLastLine(string path)
+        {
+            var lines = File.ReadAllLines(path);
+
+            return lines.Last();
+        }
+
         public static string GetLastFilePath()
         {
             int lastOperationNumber = GetLastOperationNumber();
