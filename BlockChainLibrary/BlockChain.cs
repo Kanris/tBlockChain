@@ -64,7 +64,7 @@ namespace BlockChainLibrary
                 return hashString;
             }
 
-            return "";
+            return String.Empty;
         }
 
         private static string ReadebleByteArray(byte[] array)

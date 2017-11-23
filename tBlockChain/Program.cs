@@ -18,7 +18,7 @@ namespace tBlockChain
 
             int errors = BlockChain.CheckChain();
 
-            Console.WriteLine($"Numer of erros: {errors}");
+            Console.WriteLine($"Number of erros: {errors}");
         }
     }
 }

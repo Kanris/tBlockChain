@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlockChainLibrary
 {
-    class OperationFile
+    public static class OperationFile
     {
         private static readonly string pathToOperations = $@"{AppDomain.CurrentDomain.BaseDirectory}Operations";
         private static readonly string fileExtension = "txt";
